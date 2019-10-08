@@ -6,14 +6,19 @@ void main() {
   * At the end it outputs the average performance
   */
   // Declare variables:
-  float marks[7], total, average;
-  int y;
+  float total, average;
+  int y, n;
   char g;
+
+  printf("Enter number of units done ");
+  scanf("%d", &n);
+
+  float marks[n];
   
-  printf("Enter your marks\n");
+  printf("\nEnter your marks\n");
   
   // Start looping through each marks
-  for ( y=1; y<8; y++ ) {
+  for ( y=1; y<=n; y++ ) {
 
     // Start processing the marks
     printf("Unit %d\n", y);
@@ -45,7 +50,7 @@ void main() {
   }
 
   // Get the average marks
-  average = (total/7);
+  average = (total/n);
 
   // Check if average marks are between 0 and 100
   if ( average >= 0 && average <= 100 ) {
@@ -63,7 +68,7 @@ void main() {
     }
     
     // Output the average marks
-    printf ( "Total average marks are %f with a grade %c\n", average, g );
+    printf ( "Total average marks are %.2f with a grade %c\n", average, g );
   } else {
 
     // Error message for invalid marks input
