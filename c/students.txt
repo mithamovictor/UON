@@ -1,0 +1,13 @@
+The student is called Vic
+Vic scored as follows:
+ Grade C for unit 1
+ Grade C for unit 2
+ Grade C for unit 3
+ Grade C for unit 4
+ Grade C for unit 5
+ Grade C for unit 6
+ Grade C for unit 7
+
+The average grade for Vic is C
+
+
