@@ -7,5 +7,5 @@ void main()
   num1 = 50;
   num2 = 60;
   num3 = num1 + num2;
-  printf("\n%d", num3);
+  printf("\n%d\n", num3);
 }

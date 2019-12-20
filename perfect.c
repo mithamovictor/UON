@@ -2,27 +2,27 @@
 
 void main() {
 
-    int start, end, i, j, sum;
+  int start, end, i, j, sum;
 
-    printf("Enter the range start ");
-    scanf("%d", &start);
-    printf("Enter the range end ");
-    scanf("%d", &end);
+  printf("Enter the range start ");
+  scanf("%d", &start);
+  printf("Enter the range end ");
+  scanf("%d", &end);
 
-    for ( i=start; i<=end; i++ ) {
-        sum=0;
+  for ( i=start; i<=end; i++ ) {
+    sum=0;
 
-        while ( j<=i ) {
+    while ( j<=i ) {
 
-            if ((i%j) == 0 ) {
-                sum += j;
-            }
+      if ((i%j) == 0 ) {
+        sum += j;
+      }
 
-            j++;
-        }
-
-        if ( sum == i ) {
-            printf("%d\n\n", i );
-        }
+      j++;
     }
+
+    if ( sum == i ) {
+      printf("%d\n\n", i );
+    }
+  }
 }
