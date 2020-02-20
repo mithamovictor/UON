@@ -1,7 +1,17 @@
 #include<stdio.h>
 
+#define MAX 2
+int A[MAX];
+int top = -1;
+
+void Push();
+void Pop();
+int Top();
+void Print();
+void stack();
 void del();
 void insert();
+void search();
 void create();
 
 void main() {
@@ -11,7 +21,8 @@ void main() {
 	printf("1. Create new list.\n");
 	printf("2. Insert into list.\n");
 	printf("3. Delete from list.\n");
-	printf("4. Search in list\n\n");
+	printf("4. Search in list\n");
+	printf("5. Stack\n\n");
 	scanf("%d", &j);
 	
 	switch(j) {
@@ -25,7 +36,10 @@ void main() {
 			del();
 			break;
 		case 4:
-			printf("Search element selected.");
+			search();
+			break;
+		case 5:
+			stack();
 			break;
 		default:
 			break;
@@ -52,6 +66,31 @@ void create() {
 		printf("%s\n", &arr[i]);
 	}
 	printf("****************************\n");
+}
+
+void search() {
+	
+	int i, n, pos;
+	char val;
+	
+	printf("enter number of elements in the array\n");
+	scanf(" %d",&n);
+	int arr[n];
+	
+	for(i=0; i<n; i++) {
+		printf("Enter integer %d:: ", i+1);
+		scanf("%s",&arr[i]);
+	}
+	
+	printf("Enter the position of integer to retrieve:: ");
+	scanf("%d", pos);
+	
+	printf("The integer in the list is:: \n");
+	for(i=0; i<n; i++) {
+		if ((pos-1) == i) {
+			printf("%s\n", &arr[i]);
+		}
+	}
 }
 
 void insert() {
@@ -120,4 +159,47 @@ void del() {
 		printf("****************************\n");
   	}
 	
+}
+
+void Push(int x) {
+	if ( top == MAX-1) {
+		printf("Error: The stack is overflow!\n");
+		return;
+	}
+	top++;
+	A[top] = x;
+}
+
+void Pop() {
+	if(top == -1) {
+		printf("Error: No element to pop!\n");
+		return;
+	}
+	top--;
+}
+
+int Top() {
+	return A[top];
+}
+
+void Print() {
+	int i;
+	printf("Stack:: ");
+	for(i=0; i<=top; i++) {
+		printf("%d ", A[i]);
+	}
+	printf("\n");
+}
+
+void stack() {
+	Push(2);
+	Print();
+	Push(5);
+	Print();
+	Push(10);
+	Print();
+	Pop();
+	Print();
+	Push(12);
+	Print();
 }

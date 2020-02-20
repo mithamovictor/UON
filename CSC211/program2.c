@@ -41,6 +41,7 @@ int pop(Stack *s, int *item) {
     s->TOP = s->TOP - 1;
     return 0;
 }
+
 int main() {
     Stack s;
     int item;
