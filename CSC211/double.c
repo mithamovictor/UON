@@ -3,30 +3,24 @@
 
 typedef struct node 
 {
-	// Two members. An integer member and a pointer
 	int data;
-	struct node * next;
+	struct node *next;
+	struct node *prev;
 }node;
 
-node * createLinkedList(int n); // function to create the list
+node *create_list(); // function to search the list
+void display_list(node *head);
+void search(node *head); // function to search the list
+void delete_node(node *head); // function to search the list
+void insert_node(node *head); // function to insert into the list
 
-void displayList(node * head); // function to display the list
-
-void search(node * head); // function to search the list
-
-void delete_node(node * head); // function to delete node from the list
-
-void insert_node(node * head); // function to insert node into list
-
-int main() 
+int main()
 {
-	int n = 0;
-	int k, l;
-	node * HEAD = NULL;
-	printf("\nHow many nodes: ");
-	scanf("%d", &n);
-	HEAD = createLinkedList(n);
-	displayList(HEAD);
+    int k, l;
+    node *HEAD = NULL;
+    HEAD = create_list();
+    display_list(HEAD);
+    
 	printf("\nEnter 1 to continue or 0 to exit\n");
 	scanf("%d", &k );
 	
@@ -46,7 +40,6 @@ int main()
 	
 	if ( l==1 ) 
 	{
-		// if search selected call the search function
 		search(HEAD);
 	}
 	else if ( l==2 ) 
@@ -66,54 +59,58 @@ int main()
 	return 0;
 }
 
-node * createLinkedList(int n) 
+node *create_list()
 {
-	int i = 0;
-	node * head = NULL; // Used to store address of first node
-	node * temp = NULL; // create a temporary node
-	node * p = NULL; // to be used for positioning
+	int i, n, item;
+	node *new_node, *p, *head; 
 	
-	for (i=0; i<n; i++) 
-	{
+	printf("\nEnter the number of nodes\n");
+    scanf("%d", &n);
 
-        // create an individual isolated node
-		temp = (node*)malloc(sizeof(node));
-		printf("\nEnter the data for node number %d\n", i+1);
-        scanf("%d", &(temp->data));
-        temp->next = NULL;
+	printf("\nEnter the first element of node\n");
+    scanf("%d", &item);
 
-        // If list is currently empty, then make temp the first node
-        if (head == NULL) 
-		{ 
-            head = temp;
-        }
-        else
-        {
-        	p = head;
-        	while( p->next != NULL )
-        		p = p->next;
-        	p->next =  temp;
-		}
-	}
-	
-	return head;
+    new_node = (node *)malloc(sizeof(new_node));
+
+    // Create the first node
+    new_node->data = item;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    head = new_node;
+    p = new_node;
+
+    for ( i=1; i<n; i++ )
+    {
+        printf("\nEnter next node\n");
+        scanf("%d", &item);
+
+        new_node = (node *)malloc(sizeof(new_node));
+
+        new_node->data = item;
+        new_node->next = NULL;
+        new_node->prev = p;
+
+        p->next = new_node;
+
+        p = p->next;
+    }
 }
 
-void displayList(node * head)
+void display_list(node *head)
 {
-	node * p = head;
+	node *p = head;
 	
 	printf("\t");
 	
 	while(p != NULL)
 	{
 		// print the list
-		printf("%d->", p->data);
+		printf("<-%d->", p->data);
 		p = p->next;
 	}
 }
 
-void search(node * head)
+void search(node *head)
 {
 	int j = 0;
 	printf("\nEnter the node to search for \n");
@@ -132,13 +129,13 @@ void search(node * head)
 	}
 }
 
-void delete_node(node * head)
+void delete_node(node *head)
 {
 	int d;
 	printf("Enter the node to delete");
 	printf("%d", &d);
 	
-	node * p, * q;
+	node *o, *p, *q, *temp;
 	
 	q = head;
 	p = head->next;
@@ -146,6 +143,7 @@ void delete_node(node * head)
 	// Delete start node.
 	if ( q->data == d)
 	{
+        p->prev = NULL; // make the new head prev NULL
 		head = p; // make p the new head
 		delete(q);
 	}
@@ -160,29 +158,36 @@ void delete_node(node * head)
 		// Delete last node
 		if ( p->next == NULL )
 		{
+            p->prev = NULL; // break p prev link to q
 			q->next = NULL; // make q point to null
 			delete(p);
 		}
 		else // Delete internal node
 		{
 			q->next = p->next; // make q point to p->next then delete p
+            temp = p->next;
+            temp->prev = NULL;
+            p->prev = NULL;
 			delete(p);
 		}
 	}
 }
 
-void insert_node(node * head)
+void insert_node(node *head)
 {
-	int i = 0, insert_position, store_next;
+	int i = 0, insert_position, store_next, store_prev;
 	printf("\nEnter the node to add\n");
 	scanf("%d", &i);
 	
-	node *new_node, *p;
+	node *new_node, *p, *q;
 	
 	p = head->next;
+    q = head->prev;
 	
 	// Store node at start
 	new_node->next = head;
+    new_node->prev = NULL;
+    head->prev = new_node;
 	head = new_node;
 	
 	// Store node in the middle
@@ -192,8 +197,10 @@ void insert_node(node * head)
 	}
 	
 	store_next = p->next;
+    store_prev = p;
 	p->next = new_node;
 	new_node->next = store_next;
+    new_node->prev = store_prev;
 	
 	// Store node at the end
 	while ( p->next != NULL )
@@ -203,4 +210,5 @@ void insert_node(node * head)
 	
 	p->next = new_node;
 	new_node->next = NULL;
+    new_node->prev = p;
 }
