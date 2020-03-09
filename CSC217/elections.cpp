@@ -96,7 +96,7 @@ void output_res()
 	cout << endl;
     
 
-    if ( count > 0 ) 
+    if ( count > 1 ) 
     {
         cout << "There was a tie. There will be a runoff." << endl;
     }
